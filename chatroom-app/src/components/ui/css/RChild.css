@@ -1,0 +1,15 @@
+.RightUi .ChildMain,.RightUi .ChildBottom{
+    width:100%;
+}
+.RightUi .ChildMain{
+    height: 70%;
+    border-bottom: 1px solid black;
+}
+.RightUi .ChildBottom{
+    top: 70%;
+    height: 30%;
+}
+.RightUi .ChildMain .username{
+    width: inherit;
+    height: 3%;
+}

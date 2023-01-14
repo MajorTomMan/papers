@@ -1,0 +1,40 @@
+.LeftUi .ChildMain,.LeftUi .ChildBottom,.LeftUi .ChildMain form,.LeftUi .ChildBottom form textarea{
+    width:inherit;
+    position: absolute;
+    resize: none;
+}
+
+.LeftUi .ChildMain{
+    height: 80%;
+    overflow: auto;
+    border-right: 1px solid black;
+}
+.LeftUi .ChildBottom{
+    top: 85%;
+    height: 15%;
+}
+
+.LeftUi .ChildBottom form #Input{
+    width: 99.6%;
+    height: 100%;
+}
+
+.LeftUi .ChildBottom .ClickBox{
+    position: inherit;
+    width: 100%;
+    top: 70%;
+    height: 30%;
+}
+.LeftUi .ChildBottom form{
+    position: inherit;
+    width: 100%;
+    height: 100%;
+}
+
+
+.LeftUi .ChildBottom .ClickBox p{
+    position: absolute;
+    margin: 0%;
+    top: 5px;
+    left: 85%;
+}

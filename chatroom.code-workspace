@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "chatroom-app"
+		},
+		{
+			"path": "spring-Sever"
+		},
+		{
+			"path": "interface-Doc"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}
