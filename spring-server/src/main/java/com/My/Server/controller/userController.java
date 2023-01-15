@@ -29,6 +29,13 @@ public class userController {
 
     @PostMapping("/delete")
     public R Delete(@RequestBody User user) {
+        userService.Delete(user);
+        return R.ok();
+    }
+
+    @PostMapping("/delete/{id}")
+    public R DeleteById(@PathVariable Integer id) {
+        userService.DeleteById(id);
         return R.ok();
     }
 

@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Insert,Select } from '../../Tools/Connect';
+import { Insert, queryByName } from '../../Tools/Connect';
 
 function Copyright(props) {
   return (
@@ -32,42 +32,46 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    if(isEmpty(data)){
+    if (isEmpty(data)) {
       alert("必填项不能为空!")
     }
-    let res=await Select({
-      name:data.get('name'),
-    })
-    if(isRegister(res)){
-      return false
-    }
-    let iresult=await Insert(
+    let query = await queryByName(
       {
-        name:data.get('name'),
-        password:data.get('password'),
-        lastname:data.get('lastname'),
-        firstname:data.get('firstname'),
+        name: data.get('name'),
       }
     )
-    console.log(iresult)
+    if (userisExist(query)) {
+      alert(`该用户已注册!`)
+    }
+    let insert = await Insert(
+      {
+        name: data.get('name'),
+        password: data.get('password'),
+        lastname: data.get('lastname'),
+        firstname: data.get('firstname'),
+      }
+    )
+    console.log(insert)
     alert(`欢迎注册! ${data.get('name')} ^.^`)
-    window.location.href=`/room?name=${data.get('name')}`
+    window.location.href = `/room?name=${data.get('name')}`
   };
-  const isEmpty=(data)=>{
-    if(
-        data.get('lastname')!==''||data.get('firstname')!==''||
-        data.get('name')!==''||data.get('password')!==''
-      ){
-        return false;
+  const isEmpty = (data) => {
+    if (
+      data.get('lastname') !== '' || data.get('firstname') !== '' ||
+      data.get('name') !== '' || data.get('password') !== ''
+    ) {
+      return false;
     }
     return true;
   }
-  const isRegister=({data})=>{
-    if(data.length!==0){
-      alert("该用户名已经被注册了!")
-      return true
-    }
-    return false
+  const userisExist = ({ data }) => {
+    if (data === "") return false; //检验空字符串
+    if (data === "null") return false; //检验字符串类型的null
+    if (data === "undefined") return false; //检验字符串类型的 undefined
+    if (!data && data !== 0 && data !== "") return false; //检验 undefined 和 null           
+    if (Array.prototype.isPrototypeOf(data) && data.length === 0) return false; //检验空数组
+    if (Object.prototype.isPrototypeOf(data) && Object.keys(data).length === 0) return false;  //检验空对象
+    return true;
   }
   return (
     <ThemeProvider theme={theme}>
@@ -93,7 +97,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="LastName" 
+                  id="LastName"
                   label="姓氏"
                   name="lastname"
                   autoComplete="family-name"

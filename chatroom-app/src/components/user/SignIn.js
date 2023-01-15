@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Select  } from '../../Tools/Connect';
+import { queryByName } from '../../Tools/Connect';
 
 function Copyright(props) {
   return (
@@ -34,44 +34,55 @@ export default function SignIn() {
     event.preventDefault()
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    if(isEmpty(data)){
+    if (inputIsEmpty(data)) {
       alert("用户名或者密码不能为空,请重新输入")
     }
-    else{
-      let res=await Select(
+    else {
+      let res = await queryByName(
         {
           name: data.get('name'),
           password: data.get('password'),
+          lastname: data.get('lastname'),
+          firstname: data.get('firstname')
         }
       )
-      console.log("后端返回:",res)
-      isRegister(data,res)
+      console.log("后端返回:", res)
+      if (userisExist(res)) {
+        if (!isCorrect(data.get('name'), res)) {
+          alert(`请输入正确的账号或密码!`)
+          return
+        }
+        alert(`欢迎回来! ${data.get('name')} ^.^`)
+        window.location.href = "/room?name=" + encodeURI(data.get('name')) + "";
+      }
+      else {
+        alert("您尚未注册.马上跳转注册页面^.^")
+        window.location.href = "/signup"
+      }
     }
   };
-  const isEmpty=(data)=>{
-    if(data.get('name')===''||data.get('password')===''){
+  const inputIsEmpty = (data) => {
+    if (data.get('name') === '' || data.get('password') === '') {
       return true
     }
     return false
   }
-  const isRegister=async (formdata,{data})=>{
-    if(data.length!==0){
-      let password=data[0].password
-      if(password!==formdata.get('password')){
-        alert("您输入的用户名或密码不正确,请重新输入-.-")
-        return false;
-      }
-      else{
-        alert(`欢迎回来! ${formdata.get('name')} ^.^`)
-        window.location.href ="/room?name="+encodeURI(formdata.get('name'))+""; 
-      }
-    }
-    else{
-      alert("您尚未注册.马上跳转注册页面^.^")
-      window.location.href="/signup"
-    }
+  const userisExist = ({ data }) => {
+    if (data === "") return false; //检验空字符串
+    if (data === "null") return false; //检验字符串类型的null
+    if (data === "undefined") return false; //检验字符串类型的 undefined
+    if (!data && data !== 0 && data !== "") return false; //检验 undefined 和 null           
+    if (Array.prototype.isPrototypeOf(data) && data.length === 0) return false; //检验空数组
+    if (Object.prototype.isPrototypeOf(data) && Object.keys(data).length === 0) return false;  //检验空对象
+    return true;
   }
-
+  const isCorrect = (Name, Password, { data }) => {
+    let { name, password } = data
+    if ( Password === password && Name === name) {
+      return true
+    }
+    return false
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

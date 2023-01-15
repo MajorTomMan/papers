@@ -1,11 +1,11 @@
 
-import {update,insert,select,del,group,query} from "./Request"
+import {update,insert,queryByName,remove,msg,query} from "./Request"
 
 
-export async function Update(Message)
+export async function Update(data)
 
 {
-    const Post=update(Message)
+    const Post=update(data)
     let response=await fetch(
         Post
     )
@@ -13,10 +13,10 @@ export async function Update(Message)
 }
 
 
-export async function Insert(Message)
+export async function Insert(data)
 
 {
-    const Post=insert(Message)
+    const Post=insert(data)
     let response=await fetch(
         Post
     )
@@ -24,10 +24,10 @@ export async function Insert(Message)
 }
 
 
-export async function Delete(Message)
+export async function Delete(data)
 
 {
-    const Post=del(Message)
+    const Post=remove(data)
     let response=await fetch(
         Post
     )
@@ -35,19 +35,19 @@ export async function Delete(Message)
 }
 
 
-export async function Select(Message)
+export async function selectByName(data)
 {
-    const Post=select(Message)
+    const Post=queryByName(data)
     let response=await fetch(
         Post
     )
     return response.json()
 }
 
-export function Group(Message)
+export function Msg(data)
 
 {
-    const Post=group(Message)
+    const Post=msg(data)
     fetch(
         Post
     )

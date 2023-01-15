@@ -7,7 +7,7 @@ const MyHeaders=new Headers(
 )
 
 export var localhost=null
-const port=`9888`
+const port=`7000`
 const server_name=``
 if(server_name===``){
     localhost=`localhost:${port}`
@@ -16,20 +16,20 @@ else{
     localhost=`localhost:${port}/${server_name}`
 }
 
-export function del({name}){
+export function remove(data){
     return new Request(
-        `http://${localhost}/handle/insert`,
+        `http://${localhost}/delete`,
         {
             method:"POST",
             headers:MyHeaders,
             mode:"cors",
-            body:JSON.stringify({name})
+            body:JSON.stringify(data)
         }
     )
 }
 export function insert(data){
     return new Request(
-        `http://${localhost}/Insert`,
+        `http://${localhost}/insert`,
         {
             method:"POST",
             headers:MyHeaders,
@@ -41,7 +41,7 @@ export function insert(data){
 }
 export function update(data){
     return new Request(
-        `http://${localhost}/handle/update`,
+        `http://${localhost}/update`,
         {
             method:"POST",
             headers:MyHeaders,
@@ -51,38 +51,37 @@ export function update(data){
         }
     )
 }
-export function select(){
-    return new Request(
-        `http://${localhost}/handle/select`,
-        {
-            method:"POST",
-            headers:MyHeaders,
-            cache:"default",
-            mode:"cors",
-        }
-    )
-}
-export function group({name,message,time}){
-    return new Request(
-        `http://${localhost}/Group`,
-        {
-            method:"POST",
-            headers:MyHeaders,
-            cache:"default",
-            mode:"cors",
-            body:JSON.stringify({name:name,message:message,time:time})
-        }
-    )
-}
-
-
 export function query(){
     return new Request(
-        `http://${localhost}/Group`,
+        `http://${localhost}/query`,
         {
-            method:"GET",
+            method:"POST",
             headers:MyHeaders,
             cache:"default",
+            mode:"cors",
+        }
+    )
+}
+export function queryByName(){
+    return new Request(
+        `http://${localhost}/query/name/name`,
+        {
+            method:"POST",
+            headers:MyHeaders,
+            cache:"default",
+            mode:"cors",
+        }
+    )
+}
+export function msg({message}){
+    return new Request(
+        `http://${localhost}/msg/name`,
+        {
+            method:"POST",
+            headers:MyHeaders,
+            cache:"default",
+            mode:"cors",
+            body:JSON.stringify({message:message})
         }
     )
 }

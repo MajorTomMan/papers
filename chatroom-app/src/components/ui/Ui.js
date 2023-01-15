@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from "../App"
-import { LChildBottom,LChildMain } from "./LChild"
-import { RChildBottom,RChildMain } from "./RChild"
+import { LChildBottom, LChildMain } from "./LChild"
+import { RChildBottom, RChildMain } from "./RChild"
 import { localhost } from "../../Tools/Request"
 import Title from "./Title"
 
@@ -11,9 +11,9 @@ import "./css/RChild.css"
 import "./css/Title.css"
 
 
-export var socket=null
+export var socket = null
 
-function Top(){
+function Top() {
     return (
         <div className='Title'>
             <p className='title'>
@@ -22,7 +22,7 @@ function Top(){
         </div>
     )
 }
-function Content(){
+function Content() {
     return (
         <div className='Context'>
             <Left />
@@ -30,7 +30,7 @@ function Content(){
         </div>
     )
 }
-function Right(){
+function Right() {
     return (
         <div className="RightUi">
             <RChildMain />
@@ -39,7 +39,7 @@ function Right(){
     );
 }
 
-function Left(){
+function Left() {
     return (
         <div className="LeftUi">
             <LChildMain />
@@ -49,39 +49,39 @@ function Left(){
 }
 
 
-export default function Menu(){
-    const { modifyList,modifyName} = useContext(Context)
-    function getQueryVariable(variable){
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
+export default function Menu() {
+    const { modifyList, modifyName } = useContext(Context)
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) { return pair[1]; }
+        }
+        return (false);
     }
-    if(socket!=null){
+    if (socket != null) {
 
     }
-    else{
-        let name=decodeURIComponent(getQueryVariable('name'))
-        socket=new WebSocket(`ws://${localhost}/Group/${name}`)
+    else {
+        let name = decodeURIComponent(getQueryVariable('name'))
+        socket = new WebSocket(`ws://${localhost}/msg/${name}`)
     }
-    socket.onopen=(event)=>{
+    socket.onopen = (event) => {
         socket.send("hello server!")
     }
-    socket.onmessage=(event)=>{
-        let res=event.data
-        res=JSON.parse(res)
-        let temp=getdata(res)
-        let username=getname(res)
+    socket.onmessage = (event) => {
+        let res = event.data
+        res = JSON.parse(res)
+        let temp = getdata(res)
+        let username = getname(res)
         modifyList(temp)
         modifyName(username)
     }
-    const getdata=({data})=>{
+    const getdata = ({ data }) => {
         return [...data]
     }
-    const getname=({name})=>{
+    const getname = ({ name }) => {
         return name
     }
     return (
