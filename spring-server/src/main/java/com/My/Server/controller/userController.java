@@ -1,11 +1,14 @@
 package com.My.Server.controller;
 
+import java.util.List;
+
 import com.My.Server.entity.User;
 import com.My.Server.service.userService;
 import com.My.Server.utils.R;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ public class userController {
 
     @PostMapping("/insert")
     public R Insert(@RequestBody User user) {
+        userService.Insert(user);
         return R.ok();
     }
 
@@ -28,22 +32,27 @@ public class userController {
         return R.ok();
     }
 
-    @PostMapping("/query/{id}")
-    public String QueryUserById(Integer id) {
-        return null;
-
+    @RequestMapping("/query/id/{id}")
+    public R QueryUserById(@PathVariable Integer id) {
+        List<User> user = userService.QueryById(id);
+        return R.ok().put("data", user);
     }
 
-    @PostMapping("/select")
-    public Object QueryUserByName(@RequestBody String data) {
-        
+    @RequestMapping("/query/name/{name}")
+    public R QueryUserByName(@PathVariable String name) {
+        List<User> user = userService.QueryByName(name);
+        return R.ok().put("data", user);
     }
 
-    @PostMapping("/query")
-    public String QueryUsers() {
+    @RequestMapping("/query")
+    public R QueryUsers() {
+        List<User> users = userService.Query();
+        return R.ok().put("data", users);
     }
 
     @PostMapping("/update")
-    public void Update(@RequestBody User user) {
+    public R Update(@RequestBody User user) {
+        userService.Insert(user);
+        return R.ok();
     }
 }

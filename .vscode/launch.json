@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SpringServerApplication",
+            "request": "launch",
+            "mainClass": "com.My.Server.SpringServerApplication",
+            "projectName": "majortom"
+        },
+        {
+            "type": "java",
             "name": "Launch WebsocketApplication",
             "request": "launch",
             "mainClass": "com.spring.websocket.WebsocketApplication"

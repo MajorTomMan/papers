@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.My.Server.dao.userDao">
+    <resultMap id="User" type="com.My.Server.entity.User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="pwd"/>
+        <result property="lastname" column="lastname"/>
+        <result property="firstname" column="firstname"/>
+    </resultMap>
+    <insert id="Insert" parameterType="com.My.Server.entity.User">
+        insert into chatroom.user(name,pwd,lastname,firstname)
+        values(#{name},#{password},#{lastname},#{firstname})
+    </insert>
+    <delete id="Delete" parameterType="Integer">
+        delete from chatroom.user where id=#{id},name=#{name},
+        pwd=#{password},lastname=#{lastname},firstname=#{firstname}
+    </delete>
+    <delete id="DeleteById" parameterType="Integer">
+        delete from chatroom.user where id=#{id}
+    </delete>
+    <update id="Update" parameterType="com.My.Server.entity.User">
+        update chatroom.user set name=#{name},pwd=#{password},
+        lastname=#{lastname},firstname=#{firstname}
+        where id=#{id}
+    </update>
+    <select id="Query" resultMap="User">
+        select * from chatroom.user
+    </select>
+    <select id="QueryById" parameterType="Integer" resultMap="User">
+        select *
+        from chatroom.user 
+        where name=#{name}
+    </select>
+    <select id="QueryByName" resultMap="User" parameterType="String">
+        select *
+        from chatroom.user 
+        where name=#{name}
+    </select>
+</mapper>

@@ -16,42 +16,45 @@ public class userServiceImp implements userService {
     @Override
     public void Delete(User user) {
         // TODO Auto-generated method stub
-
+        userDao.Delete(user);
     }
 
     @Override
     public void DeleteById(Integer id) {
         // TODO Auto-generated method stub
-
+        userDao.DeleteById(id);
     }
 
     @Override
     public void Insert(User user) {
         // TODO Auto-generated method stub
-
+        userDao.Insert(user);
     }
 
     @Override
     public List<User> Query() {
         // TODO Auto-generated method stub
-        return null;
+        List<User> query = userDao.Query();
+        return query;
     }
 
     @Override
-    public User QueryById(Integer id) {
+    public List<User> QueryById(Integer id) {
         // TODO Auto-generated method stub
-        return null;
+        List<User> user = userDao.QueryById(id);
+        return user;
     }
 
     @Override
-    public User QueryByName(String name) {
+    public List<User> QueryByName(String name) {
         // TODO Auto-generated method stub
-        return null;
+        List<User> user = userDao.QueryByName(name);
+        return user;
     }
 
     @Override
     public void Update(User user) {
         // TODO Auto-generated method stub
-
+        userDao.Update(user);
     }
 }

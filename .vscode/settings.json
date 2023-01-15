@@ -14,5 +14,6 @@
             "username": "master",
             "password": "981221"
         }
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
 }

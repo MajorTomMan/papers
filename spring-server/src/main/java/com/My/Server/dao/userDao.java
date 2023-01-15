@@ -13,6 +13,6 @@ public interface userDao {
     public void DeleteById(Integer id);
     public void Update(User user);
     public List<User> Query();
-    public User QueryByName(String name);
-    public User QueryById(Integer id);
+    public List<User> QueryByName(String name);
+    public List<User> QueryById(Integer id);
 }
