@@ -1,5 +1,7 @@
 package com.my.server.service.impl;
 
-public class groupServiceImpl {
+import com.my.server.service.GroupService;
+
+public class GroupServiceImpl implements GroupService{
     
 }

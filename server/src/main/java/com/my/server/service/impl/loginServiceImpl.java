@@ -1,5 +1,7 @@
 package com.my.server.service.impl;
 
-public class loginServiceImpl {
+import com.my.server.service.LoginService;
+
+public class LoginServiceImpl implements LoginService{
     
 }

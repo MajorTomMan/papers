@@ -1,5 +1,5 @@
 package com.my.server.service;
 
-public interface groupService {
+public interface GroupService {
     
 }
